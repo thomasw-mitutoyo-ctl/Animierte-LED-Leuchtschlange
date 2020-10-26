@@ -1,5 +1,5 @@
 # Animierte-LED-Leuchtschlange
-Dieses Projekt ist entstanden als Praktikum eines Schülers aus Schramberg bei der Firma [Mitutoyo CTL Germany GmbH](https://mitutoyo-ctl.de).
+Dieses Projekt ist entstanden als Praktikum eines Schülers aus Schramberg bei der Firma [Mitutoyo CTL Germany GmbH](https://mitutoyo-ctl.de). Einige Präsentationen zur Elektronik stammen von der Webseite [Roboter-Basteln](https://roboter-basteln.de/).
 
 Es geht darum, animierte Schlangen zu programmieren, die auf einem WS2812 Leuchtstreifen darzustellen. Die Schlangen fressen Futter und werden länger.
 
@@ -92,7 +92,7 @@ void setup() {
 void loop() {
   for (int i=0; i<256; i++)
   {
-    // Farbe von Pixel 0 einstellen
+    // Farbe von Pixel i einstellen
     // Rot = 255 (immer an)
     // Grün = i (nimmt zu)
     // Blau = 255-i (nimmt ab)
@@ -109,4 +109,8 @@ Bei diesem Programm haben wir festgestellt, dass es nicht möglich ist, alle LED
 ![Maximaler Strom](images/maxstrom.png)
 
 
+
+Mit diesem Wissen konnten die Schüler selbst experimentieren und andere Farbverläufe, Blinklichter u.ä. entwerfen.
+
+Um ein besseres Verständnis für die Programmiersprache C++ aufzubauen, haben wir uns die Geschichte der Programmiersprachen von [Assembler bis C](praesentationen/Assembler%20bis%20C.pptx). Da unser Programm objektorientiert arbeiten soll, haben wir uns das auch Thema [Objektorientierung](praesentationen/Objektorientierung%20C++.pptx) angeschaut. So können wir später hoffentlich sehr einfach neue Schlangen erstellen, die sich dann selbst einigermaßen intelligent verhalten.
 
