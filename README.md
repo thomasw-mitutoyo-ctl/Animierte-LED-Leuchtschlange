@@ -184,3 +184,55 @@ void loop() {
 }
 ```
 
+### Requirements Engineering
+
+Im Folgenden haben wir uns mit der Anforderungsanalyse (engl. Requirements Engineering) beschäftigt. Wir haben festgestellt, dass man bei einem objektorientierten Ansatz einfach eine Person erzählen lassen kann, wie das Produkt funktioniert. Aus dieser Beschreibung suchen wir anschließend die Substantive (Hauptwörter) heraus. Diese Hauptwörter sind Kandidaten für Klassen. Ebenso suchen wir aus der Beschreibung Verben (Tunwörter) heraus. Diese Tunwörter sind Kandidaten für Methoden oder Funktionen.
+
+Im Falle unserer Leuchtschlange haben wir identifiziert:
+
+* Farbe
+* Schlange
+* Futter
+* LED Streifen
+* Farbverlauf
+
+sowie
+
+* fressen
+* leuchten
+* wachsen
+* bewegen
+
+Wir haben kurz darüber diskutiert, dass diese Beschreibung wahrscheinlich unvollständig ist, weil es unterschiedliche Kategorien von Wissen gibt:
+
+* bewusstes Wissen, d.h. das Wissen ist vorhanden und uns ist klar, dass wir es wissen
+* unbewusstes Wissen, d.h. das Wissen ist vorhanden, aber uns ist gerade nicht klar, dass wir es wissen
+* bewusstes Nichtwissen, d.h. das Wissen ist nicht vorhanden, aber uns ist immerhin klar, dass wir eine Wissenslücke haben
+* unbewusstes Nichtwissen, d.h. das Wissen ist nicht vorhanden, und uns ist nicht einmal klar, dass wir eine Wissenslücke haben
+
+Wenn wir eine Person befragen, wie etwas funktioniert, werden wir höchstens die bewussten Teile erfassen können. An die unbewussten Dinge wird die Person nicht denken und uns demnach auch nicht erklären. Der Programmierer muss daher durch geschicktes Nachfragen dieses unbewusste Wissen oder Nichtwissen ans Tageslicht bringen.
+
+### Programmdesign
+
+Zu den ermittelten Klassen konnten wir dann überlegen, welche Eigenschaften die Klasse braucht, damit sie später funktioniert. Zum Beispiel braucht die Schlange:
+
+* eine Länge in Pixeln. Wenn sie wächst, erhöht sich diese Länge.
+* eine Richtung, in die sie läuft. Auf einem eindimensionalen Leuchtstreifen kann sie nur nach links oder rechts laufen.
+* eine Geschwindigkeit in Pixeln/Sekunde. Weil es schnelle und langsame Schlangen geben könnte.
+* eine Farbe, damit man zwei Schlangen voneinander unterscheiden kann.
+* eine Position auf dem Leuchtstreifen, wo sich der Kopf der Schlange gerade befindet.
+
+Dieses Prinzip haben wir auf andere Klassen angewandt und so ganz viele Eigenschaften ermittelt. Diese Eigenschaften haben wir dann programmiert.
+
+Im nächsten Schritt haben wir dann die Methoden den Klassen zugeordnet.
+
+### Taskboard
+
+Damit wir den Überblick nicht verlieren, haben wir alle zu programmierenden Klassen aufgeschrieben und auf ein Taskboard gepinnt. So konnten wir nachverfolgen, wie weit unser Projekt gerade fortgeschritten ist.
+
+Die Aufgaben konnten sich in folgenden Zuständen befinden: 
+
+* Todo (muss noch erledigt werden)
+* In progress (ich arbeite gerade dran)
+* Done (es ist erledigt, muss aber noch geprüft werden) 
+* Verified (ist überprüft)
