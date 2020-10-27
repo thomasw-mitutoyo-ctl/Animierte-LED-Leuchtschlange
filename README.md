@@ -114,3 +114,59 @@ Mit diesem Wissen konnten die Schüler selbst experimentieren und andere Farbver
 
 Um ein besseres Verständnis für die Programmiersprache C++ aufzubauen, haben wir uns die Geschichte der Programmiersprachen von [Assembler bis C](praesentationen/Assembler%20bis%20C.pptx). Da unser Programm objektorientiert arbeiten soll, haben wir uns das auch Thema [Objektorientierung](praesentationen/Objektorientierung%20C++.pptx) angeschaut. So können wir später hoffentlich sehr einfach neue Schlangen erstellen, die sich dann selbst einigermaßen intelligent verhalten.
 
+## Dienstag, 27.10.2020
+
+Wir haben das Thema Objektorientierung nochmal wiederholt und uns angeschaut, auf welche Arten in C++ Objekte erzeugt werden können. Wir haben bemerkt, dass Objekte auf dem Stack oder auf dem Heap angelegt werden können. Auf dem Stack wurden die Adressen mit jedem neuen Objekt kleiner, auf dem Heap mit jedem neuen Objekt größer. Wir haben außerdem festgestellt, dass unser Objekt vom Typ Quader 14 Bytes Speicherplatz braucht, nämlich 4 Bytes für die Höhe (`float`), 4 Bytes für die Länge (`float`), 4 Bytes für die Breite (`float`) und 2 Bytes für die Bestellnummer (`int`).
+
+Das Anlegen von Objekten auf dem Stack erfolgt direkt durch Aufruf des Konstruktors (z.B. `Quader a(1,2,3);`). Das Anlegen von Objekten auf dem Heap erfolgt mit dem Schlüsselwort `new` sowie der Klasse, aus der ein Objekt erzeugt werden soll. Zusätzlich brauchen Objekte auf dem Heap noch ein `*` vor dem Namen. Insgesamt also `Quader *b = new Quader(1,2,3);`. Einen weiteren Unterschied gibt es beim Löschen der Objekte. Objekte auf dem Stack werden beim Verlassen des Scopes (`{}`) zerstört. Objekte auf dem Heap müssen manuell durch Angabe von `delete` zerstört werden. Der folgende Code zeigt ein Beispiel:
+
+```cpp
+#include "Quader.h"
+
+void setup() {  
+  Quader stack(1.0, 2.0, 3.0);
+  Quader *heap = new Quader(1.0, 2.0, 3.0);
+  
+  Serial.begin(9600);
+  Serial.println((int)&stack);
+  Serial.println((int)heap);
+  Serial.println(stack.hoehe);
+  Serial.println(heap->hoehe);
+  
+  delete heap;
+}
+
+void loop() {
+}
+```
+
+Nach dem zugegeben schwierigen Ausflug durch die Möglichkeiten der Objektorientierung in C++ haben wir uns angeschaut, wie man viele Objekte von der gleichen Sorte verwalten kann. Dies geht mit Feldern (Arrays) oder mit Vektoren. Die Größe eines Arrays kann nur einmal angegeben werden und bleibt dann fest. Die Größe eines Vektors kann sich verändern. Im folgenden Code wird beides verwendet:
+
+```cpp
+#include <ArduinoSTL.h>
+#include "Quader.h"
+
+#define QUADER_COUNT 10
+
+void setup() {
+  Serial.begin(9600);
+  // Arrays / Felder
+  Quader *quaders[QUADER_COUNT]; 
+  for(int i=0; i<QUADER_COUNT; i++)
+  {
+    quaders[i] = new Quader(1.0, 2.0, 3.0);
+    Serial.println(quaders[i]->volumen());
+  }
+
+  // Vektor
+  std::vector<Quader*> v;
+  v.push_back(new Quader(1.0, 2.0, 3.0));
+  v.push_back(new Quader(2.0, 3.0, 4.0));
+  Quader *q = v[1];
+  Serial.println(q->volumen());
+}
+
+void loop() {
+}
+```
+
