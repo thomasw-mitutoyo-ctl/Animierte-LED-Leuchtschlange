@@ -112,6 +112,20 @@ Bei diesem Programm haben wir festgestellt, dass es nicht möglich ist, alle LED
 
 Mit diesem Wissen konnten die Schüler selbst experimentieren und andere Farbverläufe, Blinklichter u.ä. entwerfen.
 
+Auch dieses Signal haben wir uns auf dem Oszilloskop angeschaut. Die erste Beobachtung betraf die Impulsdauer. Es gab kurze und lange Impulse. Wir haben angenommen, dass die kurzen Impuls einer 0 entsprechen und die langen Impulse einer 1, d.h. dass die Daten bitweise übertragen werden. Die Frequenzmessung ergab eine Frequenz von ca. 800 kHz, wie wir es auch beim Anlegen des Objekts angegeben haben (`NEO_KHZ800`).
+
+![Impulsdauer](images/Impulsdauer.png)
+
+Insgesamt gab es 6144 Impulse (Pulse Count). Dies entspricht der Anzahl der LEDs * Anzahl der Farben pro LED * Anzahl der Helligkeitsstufen. Hier also 256 LEDs * 3 Farben/LED * 8 Helligkeitsstufen/Farbe = 6144.
+
+![Anzahl der Impulse](images/Impulsanzahl.png)
+
+Ebenfalls gut zu beobachten war die Pause (`delay(50);`) bis zur nächsten Aktualisierung der Anzeige (ΔX). 
+
+![Anzeigeintervall](images/Anzeigeintervall.png)
+
+
+
 Um ein besseres Verständnis für die Programmiersprache C++ aufzubauen, haben wir uns die Geschichte der Programmiersprachen von [Assembler bis C](praesentationen/Assembler%20bis%20C.pptx). Da unser Programm objektorientiert arbeiten soll, haben wir uns das auch Thema [Objektorientierung](praesentationen/Objektorientierung%20C++.pptx) angeschaut. So können wir später hoffentlich sehr einfach neue Schlangen erstellen, die sich dann selbst einigermaßen intelligent verhalten.
 
 ## Dienstag, 27.10.2020
