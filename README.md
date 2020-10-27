@@ -224,7 +224,7 @@ Zu den ermittelten Klassen konnten wir dann überlegen, welche Eigenschaften die
 
 Dieses Prinzip haben wir auf andere Klassen angewandt und so ganz viele Eigenschaften ermittelt. Diese Eigenschaften haben wir dann programmiert.
 
-Im nächsten Schritt haben wir dann die Methoden den Klassen zugeordnet.
+Im nächsten Schritt müssen wir dann die Methoden den Klassen zuordnen, so dass die Objekte sich auch verändern und etwas tun.
 
 ### Taskboard
 
@@ -236,3 +236,98 @@ Die Aufgaben konnten sich in folgenden Zuständen befinden:
 * In progress (ich arbeite gerade dran)
 * Done (es ist erledigt, muss aber noch geprüft werden) 
 * Verified (ist überprüft)
+
+![Taskboard](images/Taskboard.jpg)
+
+### Farben umrechnen
+
+Der HSV-Farbraum ist ganz geschickt, um einen Farbverlauf zu erzeugen. Der LED Streifen braucht die Angaben für die einzelnen LEDs aber in RGB. Dafür haben wir im Internet eine Umrechnung gesucht und in folgender Klasse umgesetzt (Datei `Farbe.h`, verwendet mit `#include "Farbe.h"`):
+
+```cpp
+typedef struct {
+    double r;       // a fraction between 0 and 1
+    double g;       // a fraction between 0 and 1
+    double b;       // a fraction between 0 and 1
+} rgb;
+
+typedef struct {
+    double h;       // angle in degrees
+    double s;       // a fraction between 0 and 1
+    double v;       // a fraction between 0 and 1
+} hsv;
+
+
+class Farbe{
+  public:
+    byte hue;
+    byte saturation;
+    byte value;
+    
+    // Konstruktor mit Angaben
+    Farbe(byte h, byte s, byte v){
+      this->hue = h;
+      this->saturation = s;
+      this->value = v;
+    }
+
+
+    // Farbe ohne Angaben: soll schwarz erzeugen
+    Farbe()
+    {
+      this->hue = 0;
+      this->saturation = 0;
+      this->value = 0;
+    }
+
+    uint32_t umrechnen(){
+      hsv in = hsv{this->hue/255.0*360, this->saturation/255.0, this->value/255.0};
+      rgb out = hsv2rgb(in);
+      long r = (byte)(out.r*255);
+      long g = (byte)(out.g*255);
+      long b = (byte)(out.b*255);
+      return (r<<16) | (g<<8) | b;   
+  }
+
+  private:
+    // Quelle: https://stackoverflow.com/questions/3018313/
+    rgb hsv2rgb(hsv in)
+    {
+      double      hh, p, q, t, ff;
+      long        i;
+      rgb         out;
+  
+      if(in.s <= 0.0) {
+          out.r = in.v;
+          out.g = in.v;
+          out.b = in.v;
+          return out;
+      }
+      hh = in.h;
+      if(hh >= 360.0) hh = 0.0;
+      hh /= 60.0;
+      i = (long)hh;
+      ff = hh - i;
+      p = in.v * (1.0 - in.s);
+      q = in.v * (1.0 - (in.s * ff));
+      t = in.v * (1.0 - (in.s * (1.0 - ff)));
+  
+      switch(i) {
+        case 0:
+            out.r = in.v; out.g = t; out.b = p; break;
+        case 1:
+            out.r = q; out.g = in.v; out.b = p; break;
+        case 2:
+            out.r = p; out.g = in.v; out.b = t; break;
+        case 3:
+            out.r = p; out.g = q; out.b = in.v; break;
+        case 4:
+            out.r = t; out.g = p; out.b = in.v; break;
+        default:
+            out.r = in.v; out.g = p; out.b = q; break;
+      }
+      return out;     
+    }
+};
+
+```
+
