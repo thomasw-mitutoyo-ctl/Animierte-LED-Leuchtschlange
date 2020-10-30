@@ -1,17 +1,21 @@
 # Animierte-LED-Leuchtschlange
-Dieses Projekt ist entstanden als Praktikum eines Schülers aus Schramberg bei der Firma [Mitutoyo CTL Germany GmbH](https://mitutoyo-ctl.de). Einige Präsentationen zur Elektronik stammen von der Webseite [Roboter-Basteln](https://roboter-basteln.de/).
+Dieses Projekt ist entstanden als Praktikum eines Schülers aus Schramberg bei der Firma [Mitutoyo CTL Germany GmbH](https://mitutoyo-ctl.de). Einige Präsentationen zur Elektronik stammen von der Webseite [Roboter-Basteln](https://roboter-basteln.de/). Wir haben die Erlaubnis, auch diese Präsentationen unter MIT Lizenz zu veröffentlichen
 
-Es geht darum, animierte Schlangen zu programmieren, die auf einem WS2812 Leuchtstreifen darzustellen. Die Schlangen fressen Futter und werden länger.
+Es geht darum, animierte Schlangen zu programmieren und auf einem WS2812 Leuchtstreifen darzustellen. Die Schlangen fressen Futter und werden länger.
 
 ## Montag, 26.10.2020
 
 Wir haben begonnen mit einer Vorstellungsrunde und der [Firmenpräsentation](praesentationen/Firmenpräsentation.pptx) gezeigt. Danach hat unser Student die Projektidee und eine mögliche Lösung vorgestellt.
+
+### Steckbrett und LEDs
 
 Wir haben das [Steckbrett](praesentationen/Steckbrett.pptx) erklärt und den [Aufbau von LEDs ](praesentationen/LED%20-%20Aufbau.pptx) sowie deren [Schwellenspannung](praesentationen/Diode%20-%20Schwellenspannung.pptx) besprochen.
 
 Unsere erste Schaltung: wir bringen eine LED zum Blinken. Unsere rote LED braucht ca. 2V Spannung. Der Arduino liefert 5V. Bei einem Strom von 20mA für die Leuchtdiode ergibt sich ein Vorwiderstand von (5V-2V)/20mA = 150Ω.  Für solche Berechnungen eignet sich der Taschenrechner [Qalculate](https://qalculate.github.io/). Der kann nämlich mit Einheiten rechnen und liefert das Ergebnis gleich mit der passenden Einheit.
 
 ![Qalculate](images/qalculate.png)
+
+Wir programmieren in der [Arduino IDE](https://www.arduino.cc/en/software):
 
 ```cpp
 // LED blinken lassen
@@ -42,6 +46,8 @@ void loop() {
 
 ```
 
+### PWM
+
 Im nächsten Schritt haben wir die LED mit einem PWM-Signal angesteuert, um die Helligkeit gezielter zu regeln. Dieses Verfahren wird auch in den WS2812 LEDs angewendet, um die Helligkeit zu regeln.  Das Signal haben wir uns auf dem Oszilloskop angeschaut.
 
 ```cpp
@@ -70,6 +76,8 @@ void loop() {
   }
 }
 ```
+
+### Lichtmischung
 
 Wir haben uns kurz über [Lichtmischung](praesentationen/Licht%20mischen.pptx) informiert, da eine WS2812 LED intern aus drei einzelnen LEDs besteht. Über die additive Farbmischung werden aus den drei Grundfarben Rot (R), Grün (G) und Blau (B) sämtliche Farben gemischt. Ein Beispiel zeigt eine mögliche Farbmischung:
 
@@ -112,6 +120,8 @@ Bei diesem Programm haben wir festgestellt, dass es nicht möglich ist, alle LED
 
 Mit diesem Wissen konnten die Schüler selbst experimentieren und andere Farbverläufe, Blinklichter u.ä. entwerfen.
 
+### WS2812 Signale auf dem Oszilloskop
+
 Auch dieses Signal haben wir uns auf dem Oszilloskop angeschaut. Die erste Beobachtung betraf die Impulsdauer. Es gab kurze und lange Impulse. Wir haben angenommen, dass die kurzen Impuls einer 0 entsprechen und die langen Impulse einer 1, d.h. dass die Daten bitweise übertragen werden. Die Frequenzmessung ergab eine Frequenz von ca. 800 kHz, wie wir es auch beim Anlegen des Objekts angegeben haben (`NEO_KHZ800`).
 
 ![Impulsdauer](images/Impulsdauer.png)
@@ -125,6 +135,8 @@ Ebenfalls gut zu beobachten war die Pause (`delay(50);`) bis zur nächsten Aktua
 ![Anzeigeintervall](images/Anzeigeintervall.png)
 
 
+
+### Objektorientierung
 
 Um ein besseres Verständnis für die Programmiersprache C++ aufzubauen, haben wir uns die Geschichte der Programmiersprachen von [Assembler bis C](praesentationen/Assembler%20bis%20C.pptx). Da unser Programm objektorientiert arbeiten soll, haben wir uns das auch Thema [Objektorientierung](praesentationen/Objektorientierung%20C++.pptx) angeschaut. So können wir später hoffentlich sehr einfach neue Schlangen erstellen, die sich dann selbst einigermaßen intelligent verhalten.
 
@@ -331,3 +343,22 @@ class Farbe{
 
 ```
 
+## Mittwoch 28.10.2020
+
+Nachdem die Klassen und Eigenschaften festgelegt waren, bestand der Mittwoch im Wesentlichen darin, den Klassen Methoden zuzuordnen und diese zu programmieren. Da unser Arduino-Programm schon sehr lang und unübersichtlich wurde, haben wir zu [Visual Studio Code](https://code.visualstudio.com/) gewechselt, das für große Projekte etwas besser geeignet ist. Die Erweiterung [PlatformIO](https://platformio.org/) ergänzt Visual Studio Code um die Möglichkeit, Code für Arduino zu schreiben. 
+
+Visual Studio Code hat gegenüber der Arduino IDE Vorteile bei
+
+* Projekten mit mehreren Dateien (z.B. `.h`-Dateien)
+* der Navigation innerhalb des Codes (z.B. Strg+Click auf einen Methodennamen)
+* Vervollständigung des Codes (z.B. Vorschläge)
+* Aufdeckung von Fehlern (z.B. rote Schlangenlinien)
+
+Nach der Behebung mehrerer kleiner Fehler (das gehört zum Tagesgeschäft eines Programmierers), hatten wir gegen 16 Uhr eine ganz ordentliche Version der animierten LED Leuchtschlangen mit folgenden Eigenschaften:
+
+* wir konnten die Anzahl der Schlangen bestimmen
+* wir konnten die Menge des Futters kontrollieren
+* Schlangen drehen sich am Anfang und am Ende der Leuchtschlange um
+* Schlangen drehen sich um, wenn sie gegen andere Schlangen stoßen
+
+Zum Ende des Tages haben wir das Praktikumszeugnis ausgehändigt und konnten der Mutter das Ergebnis vorführen.
